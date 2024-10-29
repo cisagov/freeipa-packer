@@ -74,10 +74,10 @@ variable "skip_create_ami" {
 }
 
 # The CDM Nessus Agent does not support ARM64 on Fedora.
-# data "amazon-ami" "fedora_40_arm64" {
+# data "amazon-ami" "fedora_41_arm64" {
 #   filters = {
 #     architecture        = "arm64"
-#     name                = "Fedora-Cloud-Base-AmazonEC2.aarch64-40-*"
+#     name                = "Fedora-Cloud-Base-AmazonEC2.aarch64-41-*"
 #     root-device-type    = "ebs"
 #     virtualization-type = "hvm"
 #   }
@@ -86,10 +86,10 @@ variable "skip_create_ami" {
 #   region      = var.build_region
 # }
 
-data "amazon-ami" "fedora_40_x86_64" {
+data "amazon-ami" "fedora_41_x86_64" {
   filters = {
     architecture        = "x86_64"
-    name                = "Fedora-Cloud-Base-AmazonEC2.x86_64-40-*"
+    name                = "Fedora-Cloud-Base-AmazonEC2.x86_64-41-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
@@ -118,7 +118,7 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 #   region             = var.build_region
 #   region_kms_key_ids = var.region_kms_keys
 #   skip_create_ami    = var.skip_create_ami
-#   source_ami         = data.amazon-ami.fedora_40_arm64.id
+#   source_ami         = data.amazon-ami.fedora_41_arm64.id
 #   ssh_username       = "fedora"
 #   subnet_filter {
 #     filters = {
@@ -128,9 +128,9 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 #   tags = {
 #     Application        = "FreeIPA server"
 #     Architecture       = "arm64"
-#     Base_AMI_Name      = data.amazon-ami.fedora_40_arm64.name
+#     Base_AMI_Name      = data.amazon-ami.fedora_41_arm64.name
 #     GitHub_Release_URL = var.release_url
-#     OS_Version         = "Fedora 40"
+#     OS_Version         = "Fedora 41"
 #     Pre_Release        = var.is_prerelease
 #     Release            = var.release_tag
 #     Team               = "VM Fusion - Development"
@@ -162,7 +162,7 @@ source "amazon-ebs" "x86_64" {
   region             = var.build_region
   region_kms_key_ids = var.region_kms_keys
   skip_create_ami    = var.skip_create_ami
-  source_ami         = data.amazon-ami.fedora_40_x86_64.id
+  source_ami         = data.amazon-ami.fedora_41_x86_64.id
   ssh_username       = "fedora"
   subnet_filter {
     filters = {
@@ -172,9 +172,9 @@ source "amazon-ebs" "x86_64" {
   tags = {
     Application        = "FreeIPA server"
     Architecture       = "x86_64"
-    Base_AMI_Name      = data.amazon-ami.fedora_40_x86_64.name
+    Base_AMI_Name      = data.amazon-ami.fedora_41_x86_64.name
     GitHub_Release_URL = var.release_url
-    OS_Version         = "Fedora 40"
+    OS_Version         = "Fedora 41"
     Pre_Release        = var.is_prerelease
     Release            = var.release_tag
     Team               = "VM Fusion - Development"
