@@ -6,6 +6,7 @@ roles:
     src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
   - name: automated_security_updates
     src: https://github.com/cisagov/ansible-role-automated-security-updates
+    version: improvement/support-dnf5
   - name: banner
     src: https://github.com/cisagov/ansible-role-banner
   - name: cdm_nessus_agent
