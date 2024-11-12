@@ -205,7 +205,7 @@ build {
     # We need to call bash here because after hardening /tmp has the
     # noexec bit set on it.
     execute_command = "sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
-    inline          = ["dnf5 --assumeyes --refresh install python3-libdnf5"]
+    inline          = ["dnf5 --assumeyes --quiet --refresh install python3-libdnf5"]
   }
 
   provisioner "ansible" {
