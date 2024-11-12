@@ -204,7 +204,7 @@ build {
   provisioner "shell" {
     # We need to call bash here because after hardening /tmp has the
     # noexec bit set on it.
-    execute_command = "chmod +x {{ .Path }}; sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
+    execute_command = "sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
     inline          = ["dnf5 --assumeyes --refresh install python3-libdnf5"]
   }
 
@@ -231,7 +231,7 @@ build {
   provisioner "shell" {
     # We need to call bash here because after hardening /tmp has the
     # noexec bit set on it.
-    execute_command = "chmod +x {{ .Path }}; sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
+    execute_command = "sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
     skip_clean      = true
     inline          = ["update-crypto-policies --set DEFAULT", "sed -i '/^users:/ {N; s/users:.*/users: []/g}' /etc/cloud/cloud.cfg", "rm --force /etc/sudoers.d/90-cloud-init-users", "rm --force /root/.ssh/authorized_keys", "/usr/sbin/userdel --remove --force fedora"]
   }
