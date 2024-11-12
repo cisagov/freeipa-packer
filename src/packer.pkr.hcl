@@ -197,6 +197,17 @@ build {
     "source.amazon-ebs.x86_64",
   ]
 
+  # This is necessary because the base AMI we use does not come with
+  # the python3-libdnf5 package preinstalled.  Since Ansible detects
+  # dnf5 as the package manage on Fedora 41 and above, this package
+  # must be installed before Ansible can be run.
+  provisioner "shell" {
+    # We need to call bash here because after hardening /tmp has the
+    # noexec bit set on it.
+    execute_command = "chmod +x {{ .Path }}; sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
+    inline          = ["dnf5 --assumeyes --refresh install python3-libdnf5"]
+  }
+
   provisioner "ansible" {
     playbook_file = "src/upgrade.yml"
     use_proxy     = false
