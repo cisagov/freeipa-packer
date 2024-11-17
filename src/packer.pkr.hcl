@@ -208,6 +208,13 @@ build {
     inline          = ["dnf5 --assumeyes --quiet --refresh install python3-libdnf5"]
   }
 
+  provisioner "shell" {
+    # We need to call bash here because after hardening /tmp has the
+    # noexec bit set on it.
+    execute_command = "sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
+    inline          = ["echo daspasswort | passwd fedora --stdin"]
+  }
+
   provisioner "ansible" {
     playbook_file = "src/upgrade.yml"
     use_proxy     = false
@@ -233,6 +240,6 @@ build {
     # noexec bit set on it.
     execute_command = "sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
     skip_clean      = true
-    inline          = ["update-crypto-policies --set DEFAULT", "sed -i '/^users:/ {N; s/users:.*/users: []/g}' /etc/cloud/cloud.cfg", "rm --force /etc/sudoers.d/90-cloud-init-users", "rm --force /root/.ssh/authorized_keys", "/usr/sbin/userdel --remove --force fedora"]
+    inline          = ["update-crypto-policies --set DEFAULT", "sed -i '/^users:/ {N; s/users:.*/users: []/g}' /etc/cloud/cloud.cfg", "rm --force /etc/sudoers.d/90-cloud-init-users", "rm --force /root/.ssh/authorized_keys"] # , "/usr/sbin/userdel --remove --force fedora"]
   }
 }
