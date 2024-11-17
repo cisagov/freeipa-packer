@@ -202,16 +202,12 @@ build {
   # dnf5 as the package manage on Fedora 41 and above, this package
   # must be installed before Ansible can be run.
   provisioner "shell" {
-    # We need to call bash here because after hardening /tmp has the
-    # noexec bit set on it.
-    execute_command = "sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
+    execute_command = "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}"
     inline          = ["dnf5 --assumeyes --quiet --refresh install python3-libdnf5"]
   }
 
   provisioner "shell" {
-    # We need to call bash here because after hardening /tmp has the
-    # noexec bit set on it.
-    execute_command = "sudo env {{ .Vars }} bash {{ .Path }} ; rm -f {{ .Path }}"
+    execute_command = "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}"
     inline          = ["echo daspasswort | passwd fedora --stdin"]
   }
 
