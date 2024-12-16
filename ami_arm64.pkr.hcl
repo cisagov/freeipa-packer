@@ -35,7 +35,7 @@ source "amazon-ebs" "arm64" {
   # Many Linux distributions are now disallowing the use of RSA keys,
   # so it makes sense to use an ED25519 key instead.
   temporary_key_pair_type = "ed25519"
-  user_data_file          = "ansible/user_data.sh"
+  user_data_file          = "user_data.sh"
   vpc_filter {
     filters = {
       "tag:Name" = "AMI Build"
