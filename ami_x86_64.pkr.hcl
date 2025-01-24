@@ -25,9 +25,17 @@ source "amazon-ebs" "x86_64" {
   tags = {
     Application        = "FreeIPA server"
     Architecture       = "x86_64"
+<<<<<<< HEAD
     Base_AMI_Name      = data.amazon-ami.fedora_39_x86_64.name
     GitHub_Release_URL = var.release_url
     OS_Version         = "Fedora 39"
+=======
+    Base_AMI_Name      = data.amazon-ami.debian_bookworm_x86_64.name
+    GitHub_Ref_Name    = var.github_ref_name
+    GitHub_Release_URL = var.release_url
+    GitHub_SHA         = var.github_sha
+    OS_Version         = "Debian Bookworm"
+>>>>>>> b702664447def7d112564cadeda1ebe32e064c2d
     Pre_Release        = var.is_prerelease
     Release            = var.release_tag
     Team               = "VM Fusion - Development"
